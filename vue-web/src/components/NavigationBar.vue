@@ -91,11 +91,12 @@ function toggleTheme() {
   width: 100%;
 }
 
-/* 导航项（确保垂直居中） */
+/* 导航项 */
 .nav-item {
   display: flex;
   align-items: center;
-  height: 100%;
+  margin: auto;
+  height: 50%;
   position: relative;
 }
 
@@ -111,7 +112,7 @@ function toggleTheme() {
   padding: 0.5rem 0;
   display: flex;
   align-items: center;
-  height: 100%;
+  height: auto;
   transition: color 0.3s ease;
 }
 
@@ -134,7 +135,6 @@ function toggleTheme() {
   width: 100%;
 }
 
-/* 主题切换按钮（精致版） */
 .theme-toggle {
   background: transparent;
   border: none;
@@ -165,7 +165,6 @@ function toggleTheme() {
   transform: rotate(30deg);
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
   .nav-menu {
     gap: 1rem;

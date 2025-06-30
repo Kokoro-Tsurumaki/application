@@ -25,9 +25,9 @@ const router = createRouter({
       component: () => import('@/views/PgyerManageView.vue'),
     },
     {
-      path: '/dongyijie',
-      name: 'dongyijie',
-      component: () => import('@/views/DongyijieView.vue'),
+      path: '/topic',
+      name: 'topic',
+      component: () => import('@/views/TopicView.vue'),
     }
 
   ],

@@ -90,22 +90,22 @@ const deleteConfig = async (config_id: number) => {
 }
 
 const downloadFile = (url: string, fileName: string = "app.apk") => {
-  // 1. 创建唯一ID防止重复
+  // 创建唯一ID防止重复
   const downloadId = `download-${Date.now()}`;
   const a = document.createElement('a');
   a.id = downloadId;
 
-  // 2. 设置下载属性（兼容移动端）
+  // 设置下载属性（兼容移动端）
   a.href = url;
   a.download = fileName;
   a.style.display = 'none';
   a.target = '_blank'; // 解决iOS限制
 
-  // 3. 清理历史节点
+  // 清理历史节点
   const oldNodes = document.querySelectorAll('a[id^="download-"]');
   oldNodes.forEach(node => document.body.removeChild(node));
 
-  // 4. 事件监听改进
+  // 事件监听改进
   const cleanup = () => {
     a.removeEventListener('click', cleanup);
     a.removeEventListener('error', cleanup);
@@ -118,7 +118,7 @@ const downloadFile = (url: string, fileName: string = "app.apk") => {
   a.addEventListener('click', cleanup);
   a.addEventListener('error', cleanup);
 
-  // 5. 触发下载（兼容所有浏览器）
+  // 触发下载
   document.body.appendChild(a);
 
   if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -189,7 +189,9 @@ onMounted(() => {
         <li v-for="config in configs" :key="config.config_id" class="form-list-item">
           <div class="form-list-item-content">
             <span class="name">{{ config.name }}</span>
-            <span class="name-secondary" v-if="config.buildBuildVersion != null && config.buildBuildVersion.trim() !== ''">蒲公英构建版本：{{ config.buildBuildVersion }}</span>
+            <span class="name-secondary" v-if="config.buildVersion != null && config.buildVersion.trim() !== ''">buildVersion：{{ config.buildVersion }}</span>
+<!--            <span class="name-secondary" v-if="config.buildVersionNo != null && config.buildVersionNo.trim() !== ''">buildVersionNo：{{ config.buildVersionNo }}</span>
+            <span class="name-secondary" v-if="config.buildBuildVersion != null && config.buildBuildVersion.trim() !== ''">蒲公英构建版本：{{ config.buildBuildVersion }}</span>-->
             <span class="name-secondary" v-if="config.buildUpdateDescription != null && config.buildUpdateDescription.trim() !== ''">构建描述</span>
             <pre class="detail" v-if="config.buildUpdateDescription != null && config.buildUpdateDescription.trim() !== ''">{{ config.buildUpdateDescription }}</pre>
             <button class="add-btn" v-if="config.downloadURL != null && config.downloadURL.trim() !== ''" @click="downloadFile(config.downloadURL,config.buildFileKey ??'yuxinzhihui.apk')">

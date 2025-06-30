@@ -1,12 +1,13 @@
 :root {
   /* 色彩系统 */
-  --primary: #FF4D4D;
+  --primary: #ff4d4d;
   --secondary: #6B5AED;
   --accent: #2BD2FF;
   --text-primary: #F0F4FA;
   --text-secondary: #666;
   --bg-primary: #131720;
   --decoration-border: #2A3140;
+  --content: #2A3140;
 
   /* 动态渐变 */
   --gradient: linear-gradient(
@@ -35,6 +36,7 @@
   --text-secondary: #666;
   --bg-primary: #F8FAFC;
   --decoration-border: #CBD5E1;
+  --content: white;
 
   --gradient: linear-gradient(
     135deg,

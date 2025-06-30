@@ -3,13 +3,6 @@
 // 功能模块配置（避免硬编码）
 const modules = [
   {
-    id: 'lab',
-    title: '简历',
-    icon: 'flask',
-    path: '/resume',
-    glowColor: '#2BD2FF'
-  },
-  {
     id: 'yuxin-user',
     title: '雨昕Dev用户',
     icon: 'database',
@@ -22,7 +15,14 @@ const modules = [
     icon: 'portal',
     path: '/pgyer-manage',
     glowColor: '#FF4D4D'
-  }
+  },
+  // {
+  //   id: 'topic',
+  //   title: '题目',
+  //   icon: 'portal',
+  //   path: '/topic',
+  //   glowColor: '#FF4D4D'
+  // }
 ]
 
 </script>
@@ -55,6 +55,8 @@ const modules = [
 <style scoped>
 /* 基础样式 */
 .quantum-container {
+  margin: auto;
+  width: 80vw;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
   env(safe-area-inset-bottom) env(safe-area-inset-left);
   min-height: 100vh;
@@ -63,6 +65,7 @@ const modules = [
 
 /* 网格布局 */
 .hologram-matrix {
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
@@ -73,13 +76,13 @@ const modules = [
 
 /* 卡片样式 */
 .quantum-card {
+  transition: all 0.3s;
   position: relative;
   height: 160px;
   min-width: 0;
   background: rgba(26,26,46,0.7);
   border: 1px solid var(--accent);
   border-radius: 16px;
-  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -109,6 +112,7 @@ h3 {
   background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
   animation: data-flow 2s linear infinite;
 }
+
 
 .quantum-tunnel {
   position: fixed;

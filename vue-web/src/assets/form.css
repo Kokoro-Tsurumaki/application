@@ -13,7 +13,7 @@ h3 {
 
 /*主内容区 绘制效果*/
 .form-content {
-  background: var(--decoration-border);;
+  background: var(--content);;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -23,13 +23,11 @@ h3 {
 .form-list-item {
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--decoration-border);
-  background: var(--decoration-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 5px auto 5px auto;
-  padding: 12px 0;
+  padding: 12px 10px;
   border-bottom: 1px solid #eee;
   gap: 6px;
 }
@@ -57,7 +55,6 @@ h3 {
   margin-left: 20px;
   color: var(--text-primary);
   font-size: 0.85em;
-  background: var(--decoration-border);
 }
 
 .form-group {
