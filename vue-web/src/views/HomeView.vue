@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+import {initializeTitle} from '@/core/document_ui.ts'
+initializeTitle("首页")
 // 功能模块配置（避免硬编码）
 const modules = [
   {
@@ -25,9 +26,11 @@ const modules = [
   // }
 ]
 
+
 </script>
 
 <template>
+  <title>首页-kokoro</title>
   <div class="quantum-container">
     <div class="stellar-background">
       <div class="quantum-tunnel"></div>
