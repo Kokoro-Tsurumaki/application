@@ -24,12 +24,6 @@ const router = createRouter({
       name: 'pgyer-manage',
       component: () => import('@/views/PgyerManageView.vue'),
     },
-    {
-      path: '/topic',
-      name: 'topic',
-      component: () => import('@/views/TopicView.vue'),
-    }
-
   ],
 })
 
