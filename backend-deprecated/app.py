@@ -1,7 +1,6 @@
 # 不使用域名的服务器部署方式db.init_app(app)
 from pathlib import Path
 import importlib.util
-
 from flask import Flask
 from backend.core.extensions import db
 from backend.net.handlers import register_handlers

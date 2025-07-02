@@ -78,35 +78,35 @@ sudo apt install certbot python3-certbot-nginx
 获取并安装证书
 
 
-sudo certbot --nginx -d kokoro.xj.cn
+sudo certbot --nginx -d spring.xj.cn
 
 sudo certbot --nginx -d your_domain.com -d www.your_domain.com
 
 更新证书
-sudo certbot renew --force-renewal --cert-name kokoro.xj.cn
+sudo certbot renew --force-renewal --cert-name spring.xj.cn
 
 验证完整性
-sudo openssl verify -CAfile /etc/letsencrypt/live/kokoro.xj.cn/fullchain.pem \
-                   /etc/letsencrypt/live/kokoro.xj.cn/cert.pem
+sudo openssl verify -CAfile /etc/letsencrypt/live/spring.xj.cn/fullchain.pem \
+                   /etc/letsencrypt/live/spring.xj.cn/cert.pem
                    
 # 删除旧证书（谨慎操作前建议备份）
-sudo rm -rf /etc/letsencrypt/live/kokoro.xj.cn
-sudo rm -rf /etc/letsencrypt/archive/kokoro.xj.cn
+sudo rm -rf /etc/letsencrypt/live/spring.xj.cn
+sudo rm -rf /etc/letsencrypt/archive/spring.xj.cn
 
 
 # 重新申请证书（使用--standalone模式绕过Nginx问题）
-sudo certbot certonly --standalone -d kokoro.xj.cn
+sudo certbot certonly --standalone -d spring.xj.cn
 
 
 
 
 强制删除所有
 # 删除所有同名证书（包括带序号的）
-sudo certbot delete --cert-name kokoro.xj.cn
-sudo certbot delete --cert-name kokoro.xj.cn-0001
+sudo certbot delete --cert-name spring.xj.cn
+sudo certbot delete --cert-name spring.xj.cn-0001
 
 # 清理残留文件
-sudo rm -rf /etc/letsencrypt/{archive,live,renewal}/kokoro.xj.cn*
+sudo rm -rf /etc/letsencrypt/{archive,live,renewal}/spring.xj.cn*
 
 sudo certbot certificates
 

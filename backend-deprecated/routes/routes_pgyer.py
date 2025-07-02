@@ -1,9 +1,10 @@
-from backend.core.extensions import db
-from backend.net.models import PgyerConfig
-from backend.net.routes_decorator import make_response, response_json_wrapper
+from ..core.extensions import db
+from ..net.models import PgyerConfig
+from ..net.routes_decorator import make_response, response_json_wrapper
 from flask import request,Blueprint
 
 pgyer_api = Blueprint('pgyer', __name__, url_prefix='/api/pgyer')
+# pgyer_api = APIRouter(prefix='/api/pgyer', tags=["蒲公英"])
 
 @pgyer_api.route('/addConfig', methods=['POST'])
 @response_json_wrapper

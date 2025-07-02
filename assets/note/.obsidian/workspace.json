@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "study/英文-留档/单词.md",
+                "file": "CS/语言/python.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "单词"
+              "title": "python"
             }
           }
         ]
@@ -165,33 +165,34 @@
   },
   "active": "32258e91d5e6e670",
   "lastOpenFiles": [
+    "随笔.md",
+    "CS/语言/JavaScript.md",
+    "CS/语言/Kotlin.md",
+    "CS/语言/Vue.md",
+    "CS/语言/python.md",
+    "CS/工作问题记录.md",
+    "CS/record.md",
+    "CS/Web/Spring.md",
+    "study/英文-留档/单词.md",
+    "CS/Web",
     "study/规则.md",
     "study/近代史/问答.md",
     "study/近代史/随笔 近代史.md",
-    "随笔.md",
     "study/java.md",
     "CS/语言/Java.md",
     "随笔 1.md",
-    "study/英文-留档/单词.md",
     "study/英文-留档/语法.md",
     "study/数学-留档.md",
     "README.md",
     "study/网络/原理.md",
     "CS/Flutter/Flutter.md",
     "CS/Flutter/命令.md",
-    "CS/工作问题记录.md",
     "CS/Android/View绘制.md",
-    "CS/语言/Kotlin.md",
-    "CS/语言/JavaScript.md",
-    "CS/语言/python.md",
     "study/留档/语法.md",
     "study/留档/单词.md",
     "study/近代史/随笔 近代史 改.md",
     "CS/Android/Android.md",
     "study/网络",
-    "CS/Android/adb.md",
-    "CS/Android/三方框架与架构搭建.md",
-    "CS/Android/framework/AOSP.md",
     "Pasted image 20250626093625.png",
     "Pasted image 20250626093540.png",
     "study/英文-留档",
@@ -209,7 +210,6 @@
     "record.md~",
     "organize.py~",
     "organize.py",
-    "随笔",
     "note/assets/Pasted image 20250122150034.png",
     "未命名.canvas"
   ]
