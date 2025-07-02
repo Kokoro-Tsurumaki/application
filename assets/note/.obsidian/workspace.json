@@ -1,0 +1,216 @@
+{
+  "main": {
+    "id": "b4044d646c0839a4",
+    "type": "split",
+    "children": [
+      {
+        "id": "e0f8d8b9abdfd140",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "32258e91d5e6e670",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "study/英文-留档/单词.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "单词"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cd47012c9065129e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b616fa7482958b3b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c58e2694345ee0b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "48e0096762010f21",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "74468ebff3bbcb23",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "0f770d6ee631dfe1",
+    "type": "split",
+    "children": [
+      {
+        "id": "97aeb617a718641d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3d7ed31ece4ac73b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "CS/语言/python.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "python 的反向链接列表"
+            }
+          },
+          {
+            "id": "bfc490ca9ca5b799",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Andorid/View绘制.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "View绘制 的出链列表"
+            }
+          },
+          {
+            "id": "816d4017db59795b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "419f745fc8e3bdbf",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Andorid/View绘制.md"
+              },
+              "icon": "lucide-list",
+              "title": "View绘制 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "32258e91d5e6e670",
+  "lastOpenFiles": [
+    "study/规则.md",
+    "study/近代史/问答.md",
+    "study/近代史/随笔 近代史.md",
+    "随笔.md",
+    "study/java.md",
+    "CS/语言/Java.md",
+    "随笔 1.md",
+    "study/英文-留档/单词.md",
+    "study/英文-留档/语法.md",
+    "study/数学-留档.md",
+    "README.md",
+    "study/网络/原理.md",
+    "CS/Flutter/Flutter.md",
+    "CS/Flutter/命令.md",
+    "CS/工作问题记录.md",
+    "CS/Android/View绘制.md",
+    "CS/语言/Kotlin.md",
+    "CS/语言/JavaScript.md",
+    "CS/语言/python.md",
+    "study/留档/语法.md",
+    "study/留档/单词.md",
+    "study/近代史/随笔 近代史 改.md",
+    "CS/Android/Android.md",
+    "study/网络",
+    "CS/Android/adb.md",
+    "CS/Android/三方框架与架构搭建.md",
+    "CS/Android/framework/AOSP.md",
+    "Pasted image 20250626093625.png",
+    "Pasted image 20250626093540.png",
+    "study/英文-留档",
+    "study/留档",
+    "study",
+    "1748480876076.jpg",
+    "Pasted image 20250529091246.png",
+    "Pasted image 20250529090947.png",
+    "Pasted image 20250529091013.png",
+    "Pasted image 20250529091223.png",
+    "Pasted image 20250529091248.png",
+    "Pasted image 20250529091259.png",
+    "随笔-",
+    "随笔.md~",
+    "record.md~",
+    "organize.py~",
+    "organize.py",
+    "随笔",
+    "note/assets/Pasted image 20250122150034.png",
+    "未命名.canvas"
+  ]
+}

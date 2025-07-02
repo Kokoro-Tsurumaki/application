@@ -1,0 +1,41 @@
+# 目录结构
+
+- CS/
+    - [工作问题记录.md](CS/工作问题记录.md)
+    - Android/
+      - [adb.md](CS/Android/adb.md)
+      - [Android.md](CS/Android/Android.md)
+      - [Compose.md](CS/Android/Compose.md)
+      - [Gradle.md](CS/Android/Gradle.md)
+      - [View绘制.md](CS/Android/View绘制.md)
+      - [三方框架与架构搭建.md](CS/Android/三方框架与架构搭建.md)
+      - framework/
+        - [AOSP.md](CS/Android/framework/AOSP.md)
+        - [Framework.md](CS/Android/framework/Framework.md)
+    - Flutter/
+      - [Flutter.md](CS/Flutter/Flutter.md)
+      - [命令.md](CS/Flutter/命令.md)
+    - 工具/
+      - [git.md](CS/工具/git.md)
+    - 系统/
+      - Linex/
+        - [Linex.md](CS/系统/Linex/Linex.md)
+        - [Ubuntu.md](CS/系统/Linex/Ubuntu.md)
+    - 网络/
+      - [Okhttp.md](CS/网络/Okhttp.md)
+      - [网络.md](CS/网络/网络.md)
+      - 传输层/
+        - [TCP.md](CS/网络/传输层/TCP.md)
+        - [UDP.md](CS/网络/传输层/UDP.md)
+      - 应用层/
+        - [Http.md](CS/网络/应用层/Http.md)
+    - 语言/
+      - [C++.md](CS/语言/C++.md)
+      - [C.md](CS/语言/C.md)
+      - [git.md](CS/语言/git.md)
+      - [Java.md](CS/语言/Java.md)
+      - [Kotlin.md](CS/语言/Kotlin.md)
+      - [python.md](CS/语言/python.md)
+      - [Vue.md](CS/语言/Vue.md)
+      - [正则表达式.md](CS/语言/正则表达式.md)
+      - [语言.md](CS/语言/语言.md)
