@@ -1,182 +1,55 @@
 <script setup lang="ts">
 
-import {ref, onMounted, computed} from "vue";
-import {Moon, Sunny} from "@element-plus/icons-vue";
-// 主题状态
-const theme = ref<'light' | 'dark'>('dark')
-
-const themeIcon = computed(() =>
-  theme.value === 'light' ? Moon : Sunny
-)
-
-onMounted(() => {
-  theme.value = localStorage.getItem('theme') as 'light' | 'dark' || 'dark'
-  document.documentElement.setAttribute('data-theme', theme.value)
-})
-
-// 主题切换功能
-function toggleTheme() {
-  const html = document.documentElement;
-  const currentTheme = html.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  theme.value = newTheme
-  html.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-}
-
 </script>
 
 <template>
-  <nav class="navbar">
-<!--    <a href="/" class="nav-logo"></a>-->
-    <a href="/" class="nav-logo">
-      <span class="logo-text" data-text="kokoro">kokoro</span>
-    </a>
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="/resume" target="_blank" class="nav-link">关于</a></li>
-      <li class="nav-item">
-        <button class="theme-toggle" @click="toggleTheme()">
-          <el-icon class="theme-icon">
-            <component :is="themeIcon" />
-          </el-icon>
-        </button>
-      </li>
-    </ul>
-  </nav>
+  <div class="navbar bg-base-100 shadow-sm sticky top-0 z-50  px-20">
+    <div class="flex-1">
+      <a class="btn btn-ghost text-xl">kokoro</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li class="nav-item"><a href="/resume" target="_blank" class="nav-link">关于</a></li>
+        <li>
+          <details>
+            <summary>Parent</summary>
+            <ul class="bg-base-100 rounded-t-none p-2">
+              <li><a>Link 1</a></li>
+              <li><a>Link 2</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <label class="swap swap-rotate">
+            <!-- this hidden checkbox controls the state -->
+            <input type="checkbox" class="theme-controller" value="light" />
+
+            <!-- sun icon -->
+            <svg
+              class="swap-on h-5 w-5 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"
+              />
+            </svg>
+
+            <!-- moon icon -->
+            <svg
+              class="swap-off h-5 w-5 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
+              />
+            </svg>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-/* 导航栏基础样式 */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5%;
-  height: 60px; /* 固定高度 */
-  background: var(--bg-primary);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 导航菜单 */
-.nav-menu {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%; /* 继承navbar高度 */
-}
-
-/*左上文字*/
-.logo-text {
-  color: var(--text-primary);
-  font-family: 'Courier New', monospace;
-  font-weight: 700;
-  position: relative;
-}
-/*悬停时*/
-.logo-text::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  color: var(--secondary);
-  width: 0;
-  overflow: hidden;
-  transition: width 0.5s ease;
-}
-.nav-logo:hover .logo-text::after {
-  width: 100%;
-}
-
-/* 导航项 */
-.nav-item {
-  display: flex;
-  align-items: center;
-  margin: auto;
-  height: 50%;
-  position: relative;
-}
-
-.nav-logo {
-  text-decoration: none;
-  display: inline-flex;
-}
-
-/* 导航链接 */
-.nav-link {
-  color: var(--text-primary);
-  text-decoration: none;
-  padding: 0.5rem 0;
-  display: flex;
-  align-items: center;
-  height: auto;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: var(--text-primary);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--text-primary);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.theme-toggle {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.1);
-}
-
-.theme-icon {
-  color: var(--text-primary);
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.theme-toggle:hover .theme-icon {
-  transform: rotate(30deg);
-}
-
-@media (max-width: 768px) {
-  .nav-menu {
-    gap: 1rem;
-  }
-
-  .nav-link {
-    font-size: 0.9rem;
-  }
-
-  .theme-toggle {
-    width: 36px;
-    height: 36px;
-  }
-}
-</style>
+<style scoped></style>

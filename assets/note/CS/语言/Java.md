@@ -45,23 +45,27 @@ Java不支持多继承，被继承的类叫父类，继承它的类叫子类，�
 
 Java 是静态类型的语言，必须先声明再使用，基本数据类型之间不会共享状态。
 
-Byte：1 bit八位，是最小的整数类型，一般在操作来自网络、文件或者其他 IO 的数据流时使用，用于节省内存空间，它的取值范围是[-128,127]，如果我们试图将取值范围外的值赋
+Byte：8-bit，是最小的整数类型，一般在操作来自网络、文件或者其他 IO 的数据流时使用，用于节省内存空间，它的取值范围是[-128,127]，如果我们试图将取值范围外的值赋
 
 给 byte类型变量，则会出现编译错误。对byte类型进行数学运算时，会自动提升为int类型，如果表达式中有double或者float等类型，也是自动提升。
 
-Short：2 bit十六位，取值为[- 2^15, 2^15 - 1]，short类型参与运算的时候，一样被提升为int或者更高的类型。（顺序为 byte short int long float double).
+Short：16-bit，取值为[- 2^15, 2^15 - 1]，short类型参与运算的时候，一样被提升为int或者更高的类型。（顺序为 byte short int long float double).
 
-Int：4 bit三十二位，取值为[- 2^31, 2^31 - 1]。
+Int：32-bit，取值为[- 2^31, 2^31 - 1]。
 
-Long：8 bit六十四位，取值为 [- 2^63, 2^63 - 1,默认值为0L]，当需要计算非常大的数时，如果int不足以容纳大小，可以使用long类型。如果long也不够，可以使用BigInteger类。
+Long：64-bit，取值为 [- 2^63, 2^63 - 1,默认值为0L]，当需要计算非常大的数时，如果int不足以容纳大小，可以使用long类型。如果long也不够，可以使用BigInteger类。
 
-Char：16 bit, [0, 65535], [0, 2^16 -1],从'\u0000'到'\uffff'。无符号，默认值为'\u0000'。Java使用Unicode字符集表示字符，Unicode是完全国际化的字符集，可以表示全部人类语言中的字符。Unicode需要16位宽，所以Java中的char类型也使用16 bit表示。
+Char：16-bit, [0, 65535], [0, 2^16 -1],从'\u0000'到'\uffff'。无符号，默认值为'\u0000'。Java使用Unicode字符集表示字符，Unicode是完全国际化的字符集，可以表示全部人类语言中的字符。Unicode需要16位宽，所以Java中的char类型也使用16 bit表示。
 
-Float：32 bit，对应单精度浮点数，运行速度相比double更快，占内存更小，但是当数值非常大或者非常小的时候会变得不精确。精度要求不高的时候可以使用float类型。Double：64bit，将浮点子面子赋给某个变量时，如果不显示在字面值后面加f或者F，则默认为double类型。java.lang.Math中的函数都采用double类型。如果double和float都无法达到想要的精度，可以使用BigDecimal类。
+Float：32-bit，对应单精度浮点数，运行速度相比double更快，占内存更小，但是当数值非常大或者非常小的时候会变得不精确。精度要求不高的时候可以使用float类型。
+
+Double：64-bit，将浮点子面子赋给某个变量时，如果不显示在字面值后面加f或者F，则默认为double类型。java.lang.Math中的函数都采用double类型。如果double和float都无法达到想要的精度，可以使用BigDecimal类。
 
 Boolean：boolean类型只有两个值true和false，默认为false。
 
 关于浮点类型精度损失的解决方案，用整形代替或者是通过BigDecimal类进行运算。
+
+隐式转换byte → short → char → int → long → float → double
 
 ### 什么叫精度损失？
 

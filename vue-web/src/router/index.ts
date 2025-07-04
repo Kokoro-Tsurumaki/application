@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'pgyer-manage',
       component: () => import('@/views/PgyerManageView.vue'),
     },
+    {
+      path: '/markdown',
+      name: 'markdown',
+      component: () => import('@/views/MarkdownView.vue'),
+    },
   ],
 })
 
