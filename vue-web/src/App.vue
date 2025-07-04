@@ -9,7 +9,7 @@ import CopyRight from '@/components/CopyRight.vue'
       <main class="content">
         <RouterView />
       </main>
-      <CopyRight />
+<!--      <CopyRight />-->
     </div>
 </template>
 
