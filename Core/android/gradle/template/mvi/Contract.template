@@ -1,0 +1,23 @@
+package ${PACKAGE}.ui.features.${NAME_LOWER}
+
+import ${PACKAGE}.ui.common.base.UIContract
+
+/**
+ * =================================================================================================
+ * FILE GENERATED AUTOMATICALLY BY GRADLE TASK
+ * Generated on: ${BUILD_TIME}
+ * Command:${COMMAND}
+ * Module: ${NAME}
+ * Package: ${PACKAGE}
+ * =================================================================================================
+ */
+
+class ${NAME}Contract:UIContract {
+    data class ${NAME}State(
+        var createTime:String = "${BUILD_TIME}",
+    ): UIContract.UIState
+
+    sealed class ${NAME}Action: UIContract.UIAction {
+
+    }
+}

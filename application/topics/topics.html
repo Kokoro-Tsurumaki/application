@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>网络工程题库学习</title>
+  <script src="assets/vue.global.js"></script>
+  <link href="assets/tailwind.min.css" rel="stylesheet">
+  <link href="assets/full.css" rel="stylesheet" type="text/css">
+  <style>
+      .fade-enter-active, .fade-leave-active {
+          transition: opacity 0.3s ease;
+      }
+
+      .fade-enter-from, .fade-leave-to {
+          opacity: 0;
+      }
+
+      .question-card {
+          min-height: 300px;
+          transition: all 0.3s ease;
+      }
+
+      .answer-card {
+          min-height: 200px;
+      }
+
+      .topic-btn {
+          transition: all 0.2s ease;
+      }
+
+      .topic-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .progress-bar {
+          height: 6px;
+          transition: width 0.5s ease;
+      }
+
+      @media (max-width: 768px) {
+          .container {
+              display: flex;
+              flex-direction: column;
+              gap-2;
+          }
+          .p-6{padding:0.8rem}
+          .p-4 {
+              padding: 0.6rem
+          }
+
+      }
+  </style>
+</head>
+<body>
+<div id="app" class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="container mx-auto px-4 py-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-indigo-800 mb-2">网络工程题库学习</h1>
+      <p class="text-gray-600">高效学习，轻松掌握知识点</p>
+    </header>
+
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧导航 -->
+      <div class="w-full lg:w-1/4">
+        <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">学习主题</h2>
+          <div class="space-y-2">
+            <button
+              v-for="topic in topics"
+              :key="topic.title"
+              @click="setTopic(topic.title)"
+              :class="{
+                  'topic-btn btn btn-block justify-start': true,
+                  'btn-primary': currentTopic === topic.title,
+                  'btn-ghost': currentTopic !== topic.title
+                }"
+            >
+              <span class="flex-1 text-left">{{ topic.title }}</span>
+              <span class="badge badge-neutral">{{ topic.topics.length }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-4">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">学习进度</h2>
+
+
+          <div class="stats shadow">
+            <div class="stat">
+              <div class="stat-title">总题目</div>
+              <div class="stat-value text-primary">{{ totalQuestions }}</div>
+              <div class="stat-desc">涵盖所有主题</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-3/4">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="container flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">
+              {{ currentTopic || '请选择学习主题' }}
+            </h2>
+            <div class="flex gap-2">
+              <button
+                class="btn btn-primary"
+                :disabled="!currentTopic || !currentTopicData.topics.length"
+                @click="showAllQuestions">
+                查看全部
+              </button>
+
+              <button
+                class="btn btn-primary"
+                :disabled="!currentTopic || !currentTopicData.topics.length"
+                @click="randomSelect"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+                </svg>
+                随机选题
+              </button>
+              <button
+                class="btn btn-success"
+                :disabled="!currentQuestion"
+                @click="showAnswer"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd" />
+                </svg>
+                查看答案
+              </button>
+            </div>
+          </div>
+
+          <div v-if="currentTopic && !allQuestionVisible">
+            <!-- 题目区域 -->
+            <div class="question-card bg-base-100 rounded-xl p-6 shadow-md mb-6">
+              <div v-if="currentQuestion">
+                <h3 class="text-xl font-semibold mb-4">题目：</h3>
+                <div class="text-lg mb-6 whitespace-pre-line">{{ currentQuestion.topic }}</div>
+
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">你的答案</span>
+                  </label>
+                  <textarea
+                    v-model="userAnswer"
+                    class="textarea textarea-bordered h-40"
+                    placeholder="在这里输入你的答案..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <div v-else-if="currentTopicData.topics.length === 0"
+                   class="flex flex-col items-center justify-center h-64">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-gray-500 text-lg">该主题下暂无题目</p>
+              </div>
+
+              <div v-else class="flex flex-col items-center justify-center h-64">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-indigo-400 mb-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 14v3m4-3v3m4-3v3m3-3h6m-3-3h6M6 10h.01M6 6h.01M6 14h.01" />
+                </svg>
+                <p class="text-gray-600 mb-4">点击"随机选题"按钮开始练习</p>
+                <button class="btn btn-primary" @click="randomSelect">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+                  </svg>
+                  随机选题
+                </button>
+              </div>
+            </div>
+
+            <!-- 答案区域 -->
+            <transition name="fade">
+              <div v-if="answerVisible"
+                   class="answer-card bg-base-100 rounded-xl p-6 shadow-md border-l-4 border-success">
+                <h3 class="text-xl font-semibold mb-4 text-success">参考答案：</h3>
+                <div class="text-lg whitespace-pre-line">{{ currentQuestion.answer }}</div>
+
+                <div class="flex mt-6 gap-2">
+                  <button class="btn btn-outline" @click="hideAnswer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    隐藏答案
+                  </button>
+                  <button class="btn btn-primary" @click="nextQuestion">
+                    下一题
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20"
+                         fill="currentColor">
+                      <path fill-rule="evenodd"
+                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </transition>
+          </div>
+
+          <div v-else-if="currentTopic && allQuestionVisible">
+            <ul class="bg-base-100 rounded-box shadow-lg p-4 space-y-4">
+              <li
+                v-for="(topic, index) in currentTopicData.topics"
+                :key="index"
+                class="p-4 rounded-xl transition-all duration-300 hover:shadow-md"
+                :class="{
+        'bg-base-200': index % 2 === 0,
+        'bg-base-100': index % 2 !== 0,
+        'border border-base-300': true
+      }"
+              >
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mr-3 mt-1">
+                    <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                      {{ index + 1 }}
+                    </div>
+                  </div>
+                  <div class="flex-grow">
+                    <h3 class="font-bold text-lg text-primary mb-2 flex items-center">
+                      {{ topic.topic }}
+                    </h3>
+                    <div class="bg-base-100 rounded-lg p-3 border border-base-300">
+                      <div class="text-lg whitespace-pre-line">{{ topic.answer }}</div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div v-else class="flex flex-col items-center justify-center h-64 bg-base-100 rounded-xl p-6 shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-indigo-400 mb-4" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">欢迎使用题库学习系统</h3>
+            <p class="text-gray-500 text-center mb-4">请从左侧选择一个学习主题开始练习</p>
+            <button class="btn btn-primary" @click="setTopic(topics[3].title)">
+              开始学习
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                      d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const { createApp, ref, computed } = Vue
+
+  createApp({
+    setup() {
+      const topics = ref([
+        {
+          'title': '近代史',
+          'topics': [
+            {
+              'topic': '中国半殖民地半封建社会的基本特征。',
+              'answer':
+                '(1)资本-帝国主义操纵中国经济政治命脉\n' +
+                '(2)封建势力成为列强统治中国的支柱\n' +
+                '(3)自然经济遭破坏但封建剥削制度仍存\n' +
+                '(4)民族资本主义发展缓慢且软弱\n' +
+                '(5)经济文化发展极不平衡\n' +
+                '(6)中国人民日益贫困化。'
+            },
+            {
+              'topic': '近代中国反侵略战争失败的原因',
+              'answer':
+                '(1)根本原因：社会制度腐败(如清政府妥协投降)\n' +
+                '(2)直接原因：经济技术落后(武器、战术等)'
+            },
+            {
+              'topic': '《天朝田亩制度》的性质与评价',
+              'answer':
+                '(1)性质：以解决土地问题为中心的社会改革方案\n' +
+                '(2)进步性：否定封建土地所有制，反映农民土地愿望\n' +
+                '(3)局限性：空想性(排斥商品经济)、落后性(维护小农经济)。'
+            },
+            {
+              'topic': '洋务运动的历史作用',
+              'answer':
+                '(1)客观促进近代工业和民族资本主义发展\n' +
+                '(2)开办新式学堂，培养近代人才\n' +
+                '(3)传播西方科技知识，推动社会风气转变。'
+            },
+            {
+              'topic': '三民主义的主要内容',
+              'answer':
+                '(1)民族主义：推翻清政府，建立中华民族“独立的国家”\n' +
+                '(2)民权主义：建立资产阶级民主共和国\n' +
+                '(3)民生主义：“平均地权”(未彻底废除封建土地制度)。'
+            },
+            {
+              'topic': '辛亥革命的历史意义',
+              'answer':
+                '(1)推翻清王朝统治，打击中外反动势力\n' +
+                '(2)建立中国历史上第一个资产阶级共和政府，传播民主共和理念\n' +
+                '(3)推动中国人民思想解放\n' +
+                '(4)推动中国社会变革\n' +
+                '(5)打击帝国主义侵略势力，促进亚洲民族解放运动。'
+            },
+            {
+              'topic': '五四运动的历史特点',
+              'answer':
+                '(1)彻底反帝反封建的革命性\n' +
+                '(2)群众广泛参与的全民性\n' +
+                '(3)促进马克思主义传播的思想启蒙性。'
+            },
+            {
+              'topic': '中国共产党成立的历史意义',
+              'answer':
+                '(1)中国革命有了坚强的领导核心\n' +
+                '(2)中国革命有了科学的指导思想(马克思主义)\n' +
+                '(3)中国革命有了新的前途(社会主义)。'
+            },
+            {
+              'topic': '井冈山革命根据地的意义',
+              'answer':
+                '(1)开辟“农村包围城市”的革命道路\n' +
+                '(2)形成“工农武装割据”思想\n' +
+                '(3)为各地起义树立榜样。'
+            },
+            {
+              'topic': '中国共产党关于巩固抗日民族统一战线的策略总方针',
+              'answer':
+                '发展进步势力(策略的中心环节)，争取中间势力，孤立顽固势力\n' +
+                '(1)进步势力：工人、农民和城市小资产阶级(基础，抗日战争的主要依靠力量)\n' +
+                '(2)中间势力：民族资产阶级、开明绅士和地方实力派\n' +
+                '(3)顽固势力：大地主大资产阶级的抗日派，即以蒋介石集团为代表的国民党亲英美派。中国共产党对其贯彻又联合又斗争的政策。在同顽固派作斗争时，坚持有理、有利、有节的原则'
+            },
+            {
+              'topic': '抗日战争胜利的原因',
+              'answer':
+                '(1)以爱国主义为核心的民族精神\n' +
+                '(2)中国共产党的中流砥柱作用\n' +
+                '(3)全民族抗战的伟大力量\n' +
+                '(4)世界反法西斯力量支持。'
+            },
+            {
+              'topic': '解放战争时期土地改革的作用',
+              'answer':
+                '(1)消灭封建剥削土地制度\n' +
+                '(2)解放农村生产力\n' +
+                '(3)为战争提供人力物力支持。'
+            },
+            {
+              'topic': '新中国成立初期面临的考验',
+              'answer':
+                '(1)能否巩固新生政权\n' +
+                '(2)能否恢复国民经济\n' +
+                '(3)能否维护国家主权和安全\n' +
+                '(4)能否保持党的作风。'
+            },
+            {
+              'topic': '社会主义基本制度确立的意义',
+              'answer':
+                '(1)为社会生产力大发展开辟道路\n' +
+                '(2)为当代中国的一切发展进步提供根本政治保障\n' +
+                '(3)为社会主义先进文化的发展指明前进方向\n' +
+                '(4)标志着中国进入了社会主义社会。'
+            },
+            {
+              'topic': '中共八大的历史贡献',
+              'answer':
+                '(1)科学分析国内主要矛盾\n' +
+                '(2)提出经济建设方针(综合平衡中稳步前进)\n' +
+                '(3)强调执政党建设。'
+            },
+            {
+              'topic': '十一届三中全会的历史意义',
+              'answer':
+                '(1)重新确立实事求是思想路线\n' +
+                '(2)工作重心转移到经济建设\n' +
+                '(3)形成以邓小平为核心的领导集体。'
+            },
+            {
+              'topic': '邓小平南方谈话的核心观点',
+              'answer':
+                '(1)提出“三个有利于”判断标准\n' +
+                '(2)强调发展才是硬道理\n' +
+                '(3)计划与市场不是社会主义与资本主义的本质区别。'
+            },
+            {
+              'topic': '邓小平提出的“一个国家、两种制度”的构想',
+              'answer':
+                '(1)1982 年 1 月邓小平首次提出“一个国家，两种制度”的概念\n' +
+                '(2)1983 年 6 月提出解决台湾问题的六条方针，进一步充实了“一国两制”的构想\n' +
+                '(3)“一国两制”构想首先被运用于解决香港、澳门回归祖国问题。'
+            },
+            {
+              'topic': '邓小平理论的历史地位',
+              'answer':
+                '(1)回答“什么是社会主义、怎样建设社会主义” \n' +
+                '(2)指导中国人民在改革开放中胜利实现社会主义现代化的正确理论\n' +
+                '(3)中国特色社会主义理论体系的开篇之作。'
+            },
+            {
+              'topic': '科学发展观的内涵',
+              'answer':
+                '(1)第一要义是发展\n' +
+                '(2)核心是以人为本\n' +
+                '(3)基本要求是全面协调可持续\n' +
+                '(4)根本方法是统筹兼顾。'
+            },
+            {
+              'topic': '全面建成小康社会的意义',
+              'answer':
+                '(1)实现中华民族千百年来的夙愿\n' +
+                '(2)是迈向中华民族伟大复兴的关键一步\n' +
+                '(3)是对人类社会的伟大贡献。'
+            },
+            {
+              'topic': '全面深化改革的总目标',
+              'answer':
+                '(1)完善和发展中国特色社会主义制度\n' +
+                '(2)推进国家治理体系和治理能力现代化。'
+            },
+            {
+              'topic': '全面推进依法治国的总目标',
+              'answer':
+                '(1)建设中国特色社会主义法治体系\n' +
+                '(2)建设社会主义法治国家。'
+            },
+            {
+              'topic': '新时代党的建设总要求',
+              'answer':
+                '(1)坚决维护党中央权威和集中统一领导\n' +
+                '(2)把党的政治建设摆在首位\n' +
+                '(3)党的领导制度体系不断完善\n' +
+                '(4)深入推进党的自我革命。'
+            },
+            {
+              'topic': '新时代强军目标的内涵',
+              'answer':
+                '建设一支听党指挥、能打胜仗、作风优良的人民军队是党在新形势下的强军目标\n' +
+                '(1)听党指挥是灵魂\n' +
+                '(2)能打胜仗是核心\n' +
+                '(3)作风优良是保证。'
+            },
+            {
+              'topic': '推动构建人类命运共同体理念的意义',
+              'answer':
+                '(1)体现当代中国共产党人的全球视野\n' +
+                '(2)体现中国将自身发展与世界发展相统一的世界胸怀'
+            },
+            {
+              'topic': '生态文明体制改革的基础性框架',
+              'answer':
+                '(1)推动形成绿色发展方式和生活方式\n' +
+                '(2)全方位、全地域、全过程加强生态环境保护\n' +
+                '(3)积极参与全球环境与气候治理。'
+            },
+            {
+              'topic': '创新驱动发展的成效',
+              'answer':
+                '(1)科技前沿方向上取得重大原创成果，我国跻身创新型国家行列\n' +
+                '(2)推动经济高质量发展\n' +
+                '(3)提升治理水平、改变人们生活，带来更多便利、更充分的自由、更全面的发展。'
+            },
+            {
+              'topic': '2021年建党百年总结的伟大建党精神的内涵',
+              'answer':
+                '(1)坚持真理\n' +
+                '(2)坚守理想\n' +
+                '(3)践行初心\n' +
+                '(4)担当使命\n' +
+                '(5)不怕牺牲\n' +
+                '(6)英勇斗争\n' +
+                '(7)对党忠诚\n' +
+                '(8)不负人民'
+            },
+            {
+              'topic': '中国特色社会主义新时代的内涵',
+              'answer':
+                '(1)承前启后、继往开来的时代\n' +
+                '(2)逐步实现共同富裕的时代\n' +
+                '(3)奋力实现中国梦的时代。'
+            }
+          ]
+        },
+        {
+          'title': '马克思',
+          'topics': [
+            {
+              'topic': '什么是马克思主义？',
+              'answer':
+                '(1)由马克思、恩格斯创立并为后继者发展的理论体系\n' +
+                '(2)是关于自然、社会和人类思维发展一般规律的学说\n' +
+                '(3)是关于社会主义必然代替资本主义的学说\n' +
+                '(4)是关于全人类解放和每个人自由而全面发展的学说。'
+            },
+            {
+              'topic': '马克思主义的当代价值',
+              'answer':
+                '(1)观察当代世界变化的认识工具\n' +
+                '(2)指引当代中国发展的行动指南\n' +
+                '(3)引领人类社会进步的科学真理。'
+            },
+            {
+              'topic': '物质范畴是唯物主义哲学的基石',
+              'answer':
+                '(1)坚持了唯物主义一元论，同唯心主义和二元论划清界限\n' +
+                '(2)坚持了可知论，批判了不可知论\n' +
+                '(3)体现了唯物论和辩证法的统一，克服了形而上学唯物主义的缺陷\n' +
+                '(4)体现了唯物主义自然观与历史观的统一，为彻底的唯物主义奠定了理论基础'
+            },
+            {
+              'topic': '人类改造世界的实践活动使世界发生了二重分化',
+              'answer':
+                '(1)世界分化为自然界与人类社会\n' +
+                '(2)世界分化为客观世界和主观世界\n' +
+                '(3)不论是创造人本身的劳动，还是构成社会存在基础的物质生产，都是人改造世界的实践活动。人的实践活动是自然界与人类社会、客观世界与主观世界相分化的关键，也是它们相统一的关键'
+            },
+            {
+              'topic': '主观能动性和客观规律性的辩证统一',
+              'answer':
+                '(1)尊重客观规律是正确发挥主观能动性的前提\n' +
+                '(2)只有充分发挥主观能动性，才能正确认识和利用客观规律\n' +
+                '(3)实践是客观规律性与主观能动性统一的基础'
+            },
+            {
+              'topic': '矛盾的同一性和斗争性在事物发展中的作用',
+              'answer':
+                '(1)同一性的作用：是事物存在和发展的前提；使双方相互吸取有利因素；规定事物转化的趋势\n' +
+                '(2)斗争性的作用：为对立面的转化、事物的质变创造条件；斗争是一种矛盾统一体向另一种矛盾统一体过渡的决定性力量\n' +
+                '(3)两者相结合，共同发生作用'
+            },
+            {
+              'topic': '矛盾的普遍性和特殊性的辩证关系原理及其意义',
+              'answer':
+                '(1)辩证统一关系：矛盾的共性是无条件的、绝对的，矛盾的个性是有条件的、相对的。任何现实存在的事物的矛盾都是共性和个性的有机统一，共性寓于个性之中，没有离开个性的共性，也没有离开共性的个性。\n' +
+                '(2)意义：是马克思主义基本原理同各国实际相结合的哲学基础。'
+            },
+            {
+              'topic': '量变和质变的辩证关系',
+              'answer':
+                '(1)量变是质变的必要准备\n' +
+                '(2)质变是量变的必然结果\n' +
+                '(3)量变和质变相互渗透。'
+            },
+            {
+              'topic': '辩证否定观的基本内容',
+              'answer':
+                '(1)否定是事物的自我否定、自我发展\n' +
+                '(2)否定是事物发展的环节\n' +
+                '(3)否定是新旧事物联系的环节\n' +
+                '(4)辩证否定的实质是“扬弃”'
+            },
+            {
+              'topic': '唯物辩证法的本质特征和认识功能',
+              'answer':
+                '(1)唯物辩证法本质上是批判的和革命的\n' +
+                '(2)唯物辩证法是客观辩证法与主观辩证法的统一\n' +
+                '(3)唯物辩证法是科学的认识方法'
+            },
+            {
+              'topic': '实践对认识的决定作用',
+              'answer':
+                '(1)实践是认识的来源\n' +
+                '(2)实践是认识发展的动力\n' +
+                '(3)实践是认识的目的\n' +
+                '(4)实践是检验认识真理性的唯一标准。'
+            },
+            {
+              'topic': '感性认识与理性认识的辩证关系',
+              'answer':
+                '(1)理性认识依赖于感性认识\n' +
+                '(2)感性认识有待于发展为理性认识\n' +
+                '(3)二者相互渗透、相互包含。'
+            },
+            {
+              'topic': '真理的客观性原理',
+              'answer':
+                '(1)真理的内容是对客观事物及其规律的正确反映\n' +
+                '(2)真理是客观的，凡真理都是客观真理，这是真理问题上的唯物论\n' +
+                '(3)真理的客观性决定了真理的一元性'
+            },
+            {
+              'topic': '真理的绝对性和相对性的辩证关系',
+              'answer':
+                '(1)相互依存：任何真理都既是绝对的，又是相对的\n' +
+                '(2)相互包含：绝对之中有相对，相对之中有绝对\n' +
+                '(3)辩证转化：真理的发展是从相对走向绝对的过程。'
+            },
+            {
+              'topic': '为什么实践是检验真理的唯一标准',
+              'answer':
+                '(1)真理的本性在于主观与客观相符合\n' +
+                '(2)从实践的特点看，实践具有直接现实性\n' +
+                '(3)逻辑证明也不能取代实践作为检验真理的标准'
+            },
+            {
+              'topic': '价值评价的特点',
+              'answer':
+                '(1)以主客体价值关系为对象\n' +
+                '(2)评价结果与主体直接相关\n' +
+                '(3)评价结果的正确性依赖于对客体和主体的正确认识\n' +
+                '(4)有科学与非科学之别'
+            },
+            {
+              'topic': '社会存在与社会意识的辩证关系',
+              'answer':
+                '(1)社会存在决定社会意识\n' +
+                '(2)社会意识是社会存在的反映，并反作用于社会存在'
+            },
+            {
+              'topic': '生产力与生产关系的矛盾运动规律',
+              'answer':
+                '(1)生产力决定生产关系\n' +
+                '(2)生产关系反作用于生产力\n' +
+                '(3)生产力与生产关系的相互作用是一个过程，表现为二者的矛盾运动。矛盾运动推动整个社会逐步走向高级阶段'
+            },
+            {
+              'topic': '经济基础与上层建筑的辩证关系',
+              'answer':
+                '(1)经济基础决定上层建筑\n' +
+                '(2)上层建筑反作用于经济基础\n' +
+                '(3)经济基础与上层建筑的相互作用构成二者的矛盾运动\n' +
+                '(4)经济基础和上层建筑之间的内在联系构成了上层建筑一定要适合经济基础状况的规律'
+            },
+            {
+              'topic': '社会基本矛盾在历史发展中的作用',
+              'answer':
+                '(1)生产力是社会基本矛盾运动中最基本的动力因素，是人类社会发展和进步的最终决定力量\n' +
+                '(2)社会基本矛盾特别是生产力和生产关系的矛盾，决定着社会中其他矛盾的存在和发展\n' +
+                '(3)社会基本矛盾具有不同的表现形式和解决方式，并从根本上影响和促进社会形态的变化和发展'
+            },
+            {
+              'topic': '科学技术的社会作用',
+              'answer':
+                '(1)对生产方式产生深刻影响(改变生产力要素/劳动形式/社会经济结构)\n' +
+                '(2)对生活方式产生巨大影响\n' +
+                '(3)促进思维方式变革。'
+            },
+            {
+              'topic': '人民群众在创造历史过程中的决定作用',
+              'answer':
+                '(1)是社会物质财富创造者\n' +
+                '(2)是社会精神财富创造者\n' +
+                '(3)是社会变革的决定力量'
+            },
+            {
+              'topic': '商品的二因素及其关系',
+              'answer':
+                '(1)使用价值是商品的自然属性\n' +
+                '(2)价值是商品的社会属性\n' +
+                '(3)对立性：二者不可兼得\n' +
+                '(4)统一性：商品必须同时具有二者。'
+            },
+            {
+              'topic': '具体劳动和抽象劳动的关系',
+              'answer':
+                '(1)具体劳动和抽象劳动是对立统一的关系\n' +
+                '(2)具体劳动和抽象劳动不是各自独立存在的两种劳动或两次劳动，它们在时间上和空间上是统一的，是商品生产者的同一劳动过程不可分割的两个方面\n' +
+                '(3)具体劳动所反映的是人与自然的关系，是劳动的自然属性，而抽象劳动所反映的是商品生产者的社会关系，是劳动的社会属性'
+            },
+            {
+              'topic': '货币的职能',
+              'answer':
+                '(1)价值尺度\n' +
+                '(2)流通手段\n' +
+                '(3)贮藏手段\n' +
+                '(4)支付手段\n' +
+                '(5)世界货币'
+            },
+            {
+              'topic': '价值规律的作用',
+              'answer':
+                '(1)自发地调节生产资料和劳动力在社会各生产部门之间的分配比例\n' +
+                '(2)自发刺激社会生产力的发展\n' +
+                '(3)自发调节社会收入的分配'
+            },
+            {
+              'topic': '剩余价值生产的基本方法',
+              'answer':
+                '(1)绝对剩余价值生产(延长工作日或提高劳动强度)\n' +
+                '(2)相对剩余价值生产(缩短必要劳动时间而相对延长剩余劳动时间)'
+            },
+            {
+              'topic': '资本主义经济危机的根源',
+              'answer':
+                '(1)根本原因是资本主义基本矛盾\n' +
+                '(2)表现为生产无限扩大的趋势与劳动人民有支付能力的需求相对缩小的矛盾\n' +
+                '(3)表现为单个企业内部生产的有组织性和整个社会生产的无政府状态之间的矛盾'
+            },
+            {
+              'topic': '资本主义政治制度的局限性',
+              'answer':
+                '(1)民主是金钱操纵下的民主\n' +
+                '(2)法律名义平等掩盖事实不平等\n' +
+                '(3)政党制是一种维护资产阶级统治的政治制度。\n' +
+                '(4)政党恶斗相互掣肘，决策效率低下，激化社会矛盾'
+            },
+            {
+              'topic': '共产主义理想的实现是历史发展的必然',
+              'answer':
+                '(1)共产主义理想是能够实现的理想，它与一切空想和幻想有着本质区别\n' +
+                '(2)共产主义理想一定会实现，是以人类社会发展规律以及资本主义社会的基本矛盾发展为依据的\n' +
+                '(3)社会主义运动的实践，特别是社会主义国家的兴起和不断发展，已经并正在用事实证明共产主义理想实现的必然性'
+            }
+          ]
+        },
+        {
+          'title': '习近平',
+          'topics': [
+            {
+              'topic': '两个确立',
+              'answer':
+                '确立习近平同志党中央的核心、全党的核心地位；确立习近平同志新时代中国特色社会主义思想的指导地位\n' +
+                '两个确立是新时代党和国家事业取得历史性成就、发生历史性变革的决定性因素，是党和人民应对一切不确定性的最大确定性、最大底气、最大保证。'
+            }
+          ]
+        },
+        {
+          'title': '网络原理',
+          'topics': [
+            {
+              'topic': '简述无连接服务的特点',
+              'answer':
+                '（1）每个分组都要携带完整的目的节点的地址，各分组在通信子网中是独立传送的。\n' +
+                '（2）无连接服务中的数据传输过程不需要经过建立连接、维护连接和释放连接三个过程。\n' +
+                '（3）无连接服务中的目的节点接收到的数据分组可能出现乱序、重复与丢失现象。\n' +
+                '（4）其可靠性不是很好，但通信协议相对简单，效率较高。'
+            },
+            {
+              'topic': '简述域名解析过程',
+              'answer':
+                '一、客户端提出请求  二、本地DNS缓存查询  三、迭代查询上级Dns服务器  四、返回ip  五、缓存结果'
+            },
+            {
+              'topic': '简述 Cookie 的常见用途',
+              'answer':
+                '1)网站可以利用 Cookie 的 ID 来准确统计网站的实际访问人数、新访问者和重复访问者的人数对比、访问者的访问频率等数据。\n' +
+                '2)网站可以利用 Cookie 限制某些特定用户的访问。\n' +
+                '3)网站可以存储用户访问过程中的操作习惯和偏好。\n' +
+                '4)记录用户登录网站使用的用户名、密码等信息。\n' +
+                '5)电子商务网站利用 Cookie 可以实现“购物车”功能。'
+            },
+            {
+              'topic': '简述简单邮件传输协议(SMTP)所具有的特点',
+              'answer':
+                '(1)SMTP 只能传送 7 位 ASCII 码文本内容，包括 SMTP 命令、应答消息以及邮件内容。\n' +
+                '(2)SMTP 传送的邮件内容中不能包含“CRLF.CRLF”。如果包含该内容则需要进行转义。\n' +
+                '(3)SMTP是“推动”协议。\n' +
+                '(4)SMTP 使用 TCP 连接是持久的。'
+            },
+            {
+              'topic': '简述 POP3 协议交互过程',
+              'answer':
+                '(1)授权阶段，用户代理需要向邮件服务器发送用户名和口令，服务器鉴别用户身份，授权用户访问邮箱。\n' +
+                '(2)事务处理阶段，用户代理向邮件服务器发送 POP3 命令，实现邮件读取、为邮件做删除标记、取消邮件删除标记以及获取邮件的统计信息等操作。\n' +
+                '(3)更新阶段，客户发出了 quit 命令，结束 POP3 会话，服务器删除那些被标记为删除的邮件。'
+            },
+            {
+              'topic': '简述传输层所实现的功能。',
+              'answer':
+                '传输层主要实现如下功能：传输层寻址；\n' +
+                '对应用层报文进行分段和重组；\n' +
+                '对报文进行差错检测；\n' +
+                '实现进程间的端到端可靠数据传输控制；\n' +
+                '面向应用层实现复用与分解；\n' +
+                '实现端到端的流量控制；\n' +
+                '拥塞控制等。'
+            },
+            {
+              'topic': '简述传输层实现可靠数据传输的主要措施。',
+              'answer':
+                '1.查错检测，利用差错编码实现数据包传输过程中的比特查错检测（甚至纠正）。\n' +
+                '2.确认，接收方向发送方反馈接收状态，确认是否正确接收数据。\n' +
+                '3.重传，发送发重新发送接收方没有正确接收的数据。\n' +
+                '4.序号，发送方对发送的数据包进行编号，确保数据按序提交给接收方。\n' +
+                '5.计时器，在发送发引入计时器，解决数据丢失问题。'
+            },
+            {
+              'topic': '简述快速重传算法的基本思想。',
+              'answer':
+                '快速重传算法的基本思想是：接收端每收到一个失序的报文段后就立即发出重复确认，以便更早地通知发送端有丢包情况发生。发送端会在收到三次重复确认段后立即重传丟失的报文段，而不需要等待计时器超时。'
+            },
+            {
+              'topic': '简述路由器输入端口接收与处理数据的过程。',
+              'answer':
+                '输入端口负责从物理接口接收信号，还原数据链路层帧，提取 IP 数据报（或其他网络层协议分组），根据 IP 数据报的目的 IP 地址检索路由表，决策需要将该 IP 数据报交换到哪个输出端口。当确定输入端口接收的分组要转发至哪个输出端口之后，分组需要交给交换结构来进行转发。假设输入端口接收到分组的速率超过了交换结构对分组进行交换的速率，如果不对输入端口到达的分组进行缓存，那么将导致大量丢包情况的发生，所以输入端口除了需要提供查找、转发的功能，还需要提供对到达分组的缓存排队功能。'
+            },
+            {
+              'topic': '简述数据链路层提供的主要服务。',
+              'answer':
+                '（1）组帧。\n' +
+                '（2）链路接入。\n' +
+                '（3）可靠交付。\n' +
+                '（4）差错控制。\n'
+            },
+            {
+              'topic': '简述非坚持 CSMA 的基本原理。',
+              'answer':
+                '非坚持 CSMA 的基本原理：若通信站有数据发送，先侦听信道；若发现信道空闲，则立即发送数据；若发现信道忙，则等待一个随机时间，然后重新开始侦听信道，尝试发送数据；若发送数据时产生冲突，则等待一个随机时间，然后重新开始侦听信道，尝试发送数据。'
+            },
+            {
+              'topic': '简述虚拟局域网（VLAN）的概念及其划分方法。',
+              'answer':
+                '虚拟局域网是一种基于交换机（必须支持 VLAN 功能）的逻辑分割（或限制）广播域的局域网应用形式。划分 VLAN 的方法：基于交换机端口划分、基于 MAC 地址划分和基于上层协议类型或地址划分等方法。'
+            },
+            {
+              'topic': '简述 CMI 码的编码规则。',
+              'answer':
+                'CMI 码的编码规则是将信息码的 1 位映射为双极不归零码的 2 位。信息码的0 编码为双极不归零码的 01；信息码的 1 交替编码为双极不归零码的 11 和 00。'
+            },
+            {
+              'topic': '简述米勒码的编码规则。',
+              'answer':
+                '（1）信息码中的 1 编码为双极非归零码的 01 或者 10。\n' +
+                '（2）信息码连 1 时，后面的 1 要交替编码，即前面的 1 如果编码为 01，后面的1 就编码为10，反之亦然。\n' +
+                '（3）信息码中的 0 编码为双极非归零码的 00 或者 11，即码元中间不跳变。\n' +
+                '（4）信息码单个 0 时，其前沿、中间时刻、后沿均不跳变。\n' +
+                '（5）信息码连 0 时，两个 0 码元的间隔跳变，即前一个 0 的后沿（后一个 0 的前沿）跳变。'
+            },
+            {
+              'topic': '简述 IEEE802.11 中四个主要协议具有的共同特征。',
+              'answer':
+                '（1）都使用相同的介质访问控制协议 CSMA/CA。\n' +
+                '（2）链路层帧使用相同的帧格式。\n' +
+                '（3）都具有降低传输速率以传输更远距离的能力。\n' +
+                '（4）都支持“基础设施模式”和“自组织模式”两种模式。'
+            },
+            {
+              'topic': 'TCP 拥塞控制算法',
+              'answer':
+                '(1) 慢启动：收到一个确认，CongWin 值就加倍。\n' +
+                '(2) 拥塞避免：每经过一个 RTT，拥塞窗口 CongWin 的值就增加 1MSS。\n' +
+                '(3) 快速重传：接收端收到 3 次重复确认时，则推断被重复确认的报文段已经丢失，于是立即发送被重复确认的报文段。\n' +
+                '(4) 快速恢复：配合快速重传，当发送端连续收到 3 次重复确认，将阈值减半，并将CongWin的值设为减半后的阈值。然后开始执行拥塞避免的算法。\n' +
+                '(5) TCP 的拥塞控制采用的是窗口机制的基本策略：网络未发生拥塞时，逐渐“加性”增大窗口大小，当网络拥塞时“乘性”快速减小窗口大小，即 AIMD。'
+            },
+            {
+              'topic': '网络主要面临哪些安全威胁？',
+              'answer':
+                '(1) 报文传输威胁：主要包括窃听、插入、假冒、劫持等安全威胁\n' +
+                '(2) 服务攻击威胁：常见包括拒绝服务DoS以及分布式拒绝服务DDoS\n' +
+                '(3) 网络探测威胁：映射、分组"嗅探"、IP欺骗'
+            },
+            {
+              'topic': '网络安全概念和网络安全攻击的常见形式',
+              'answer':
+                '是指确保网络上的信息和资源不被非授权用户所使用，常见形式包括：中断、截取、修改、伪造'
+            },
+            {
+              'topic': '密码散列函数主要特征',
+              'answer':
+                '1、一般具有算法可公开性\n' +
+                '2、能够快速计算\n' +
+                '3、对任意长度报文进行多对一映射均能定长输出\n' +
+                '4、对于任意报文无法预知其散列值\n' +
+                '5、不同报文不能产生相同的散列值\n' +
+                '6、单向性、抗弱碰撞性、抗强碰撞性'
+            },
+            {
+              'topic': '数字签名应满足的要求',
+              'answer':
+                '(1)接收方能够确认或证实发送方的签名，但不能伪造。\n' +
+                '(2)发送方发出签名的消息给接收方后，就不能再否认他所签发的消息。\n' +
+                '(3)接收方对已收到的签名消息不能否认，即有收报认证。\n' +
+                '(4)第三者可以确认收发双方之间的消息传送，但不能伪造这一过程。'
+            },
+          ]
+        },
+        {
+          'title': 'Android面试',
+          'topics': [
+            {
+              'topic': 'Veiw绘制',
+              'answer':
+                '当Android系统提供给我们的控件不足以完成我们的项目需求时，就需要自定义View来实现我们想要达到的效果。\n' +
+                '自定义view的绘制，需要实现三个方法，Measure、Layout、Draw，分别对应测量、布局以及绘制。Measure方法是确定View测量的宽和高，因为有时候我们在xml中需要用到wrap_content，也就是 自适应宽高，而View自定义的处理方式就是直接使用match_content的宽高，所以当View的默认处理不满足我们的需求时，我们就需要自己设置和处理宽高。Draw方法是将View绘制在屏幕上，他的绘制过程有以下几种：绘制背景、绘制自己、绘制子View、绘制装饰，可以绘制各种形状，绘制path，添加各种动画。Layout是用来确定view四个点的位置，一般是在ViewGroup中使用。\n' +
+                '绘制流程从Avtiviy的Window对象开始，传递给根视图DecorView，DecorView将测量、布局、绘制的过程逐层向下传递给所有子视图，递归完成整个视图树的绘制。'
+            },
+            {
+              'topic': 'Handler机制',
+              'answer':
+                'Handler是子线程与主线程之间通信的一种机制，主要涉及四个类：handler、looper、messagequeue、message。\n' +
+                '这种设计模式在GUI开发中广泛使用，本质是生产者-消费者模型的变体。\n' +
+                'handler是用来发送和处理消息的，当创建Handler时会通过Looper.myLooper持有当前线程的Looper，并通过looper对mQueue的持有来持有MessageQueue。\n' +
+                'Looper的loop方法通过死循环来轮询 MessageQueue判定是否有需要发送的消息。\n' +
+                'MessageQueue是基于时间排序的链表，用于存储message。\n' +
+                'meaage是存储消息内容，包含`what`（消息标识）、`obj`（数据）、`target`（目标 Handler）、`when`（执行时间戳）。\n' +
+                'Handler创建时可以传入callback、Looper，如果没有Looper会通过Looper.myLooper()方法通过ThreadLocal中的ThreadLocalMap获取当前线程的Loper，如果是子线程，需要调用Looper.prepare()来绑定Looper，否则会返回null，并且需要显示调用Looper.loop开启循环。当调用sendMessage时将当前的message传入到handler中，通过handler中的messagequeue对象的引用，把message放入到MessageQueue中，在enqueueMessage之前会把当前handler赋值给Message的target，后续直接通过Message.taget直接分发消息，用于防止消息错乱；在enqueueMessage会把SystemClock.uptimeMillis+delayMillis作为消息执行时间赋值给message的when，放入时按照when升序排序，\n' +
+                '`SystemClock.uptimeMillis()` 返回自系统启动（boot）以来经过的时间，以毫秒为单位。它不包括设备进入深度睡眠（CPU关闭，屏幕变暗，设备等待外部输入）的时间。也就是说，它计算的是系统处于“唤醒”状态的总时间。\n' +
+                '它具有单调递增特性，即这个时间会一直增加，不会因为系统时间的改变（例如用户调整了时间，或者自动时区调整）而回退或跳跃。它保证是单调递增的。\n' +
+                'Looper的loop方法将会轮询调用MessageQueue的next()判断是否有需要执行的message，next内部通过当前的系统执行时间与message.when对比来判断，当when小于now时，将消息从链表中删除并返回给loop方法中。在loopOnce方法中判断message的target对应的handler是否存在，存在就调用target的dispatchMessage方法进行消息分发， 若`Message.callback`存在（如`post(Runnable)`），优先执行 Runnable，否则调用`handleMessage()`处理消息\n' +
+                '关于Handler发送异步消息，在Activity组件中提供了一个叫runOnUiThread的方法，该方法可以直接切至主线程，其内部就是通过handler实现的，具体就是首先他会通过currentThread方法来判断当前线程是否为主线程，不是主线程的话就会调用Activity中handler的post方法，并传入一个runnable接口参数，在post方法中通过sendMessage发送一个消息，并通过getPostMessage方法将runnable接口作为message对象的callback参数，这样消息处理时Activiy传过来的Runnable接口就会回调，从而实现一个runOnUiThread方法就可以直接切主线程的操作。\n' +
+                '关于同步屏障，同步屏障是一种特殊消息，用于阻塞普通同步消息，优先处理异步消息：\n' +
+                '主要用于确保绘制优先，避免卡顿，防止业务逻辑阻塞UI更新\n' +
+                'Handler 持有 Activity 的强引用，MessageQueue 未处理完导致 Activity 无法回收'
+            },
+            {
+              'topic': '事件分发',
+              'answer':
+                '触摸屏幕是会产生一个触摸事件，也就是MontionEvent,事件分发就是基于这个事件相对于布局层级的一系列处理。\n' +
+                'MontionEvent是一个触摸事件的封装类，他包含了触摸的坐标以及触摸的事件类型，基本事件类型分为按下、抬起、移动、取消。\n' +
+                '事件分发主要涉及三个方法，\n' +
+                'dispatchTouchEvent：负责事件的分发，事件到达控件时首先会调用该的方法，如果返回true，事件被消费，停止传递，返回false则将时间继续向下传递。\n' +
+                'onInterceptTouchEvent：用于拦截事件，只在viewgroup及其子类中可用，返回true表示拦截事件，交由自身的onTouchEvent处理，返回false则继续将事件传递给子视图。\n' +
+                'onTouchEvent：用于处理事件，通常子控件最终会在此方法中消费事件。\n' +
+                '关于事件分发的流程，首先会从Activiy接受，Activity将事件传递给DecorView，DecorView传递给子视图，此时会进入dispatchTouchEvent方法，viewgroup可以在onInterceptTouchEvent中决定是否拦截事件，不拦截则传递给子视图，直到最底层的View。\n' +
+                '最终事件会在一个控件的onTouchEvent中被消费，或沿着事件分发链返回，直到被处理或丢弃。\n' +
+                '常见使用场景一般是在自定义控件中用于控制事件分发顺序，或者是在父视图和子视图都有滑动需求时，可以通过在父视图的onInterceptTouchEvent中判断并动态拦截事件，避免滑动冲突。'
+            },
+          ]
+        }
+      ])
+
+      const currentTopic = ref(null)
+      const currentQuestion = ref(null)
+      const userAnswer = ref('')
+      const answerVisible = ref(false)
+      const allQuestionVisible = ref(false)
+
+
+      // 计算当前主题的数据
+      const currentTopicData = computed(() => {
+        return topics.value.find(t => t.title === currentTopic.value) || { topics: [] }
+      })
+
+      // 计算总题目数
+      const totalQuestions = computed(() => {
+        return topics.value.reduce((sum, topic) => sum + topic.topics.length, 0)
+      })
+
+      // 设置当前主题
+      function setTopic(topic) {
+        currentTopic.value = topic
+        currentQuestion.value = null
+        userAnswer.value = ''
+        answerVisible.value = false
+        allQuestionVisible.value = false
+      }
+
+      // 随机选题
+      function randomSelect() {
+        if (!currentTopicData.value.topics.length) return
+
+        allQuestionVisible.value = false
+        const randomIndex = Math.floor(Math.random() * currentTopicData.value.topics.length)
+        currentQuestion.value = currentTopicData.value.topics[randomIndex]
+        userAnswer.value = ''
+        answerVisible.value = false
+      }
+
+      // 显示答案
+      function showAnswer() {
+        if (currentQuestion.value) {
+          answerVisible.value = true
+        }
+      }
+
+      // 隐藏答案
+      function hideAnswer() {
+        answerVisible.value = false
+      }
+
+      // 下一题
+      function nextQuestion() {
+        randomSelect()
+      }
+
+      //查看全部
+      function showAllQuestions() {
+        if (!currentTopicData.value.topics.length) return
+        allQuestionVisible.value = true
+      }
+
+      return {
+        currentTopic,
+        topics,
+        setTopic,
+        randomSelect,
+        showAnswer,
+        hideAnswer,
+        nextQuestion,
+        showAllQuestions,
+        currentQuestion,
+        userAnswer,
+        answerVisible,
+        currentTopicData,
+        totalQuestions,
+        allQuestionVisible
+      }
+    }
+  }).mount('#app')
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+package ${PACKAGE}.ui.features.${NAME_LOWER}
+
+import ${PACKAGE}.ui.common.base.BaseUIViewModel
+import ${PACKAGE}.net.ApplicationApi
+
+/**
+ * =================================================================================================
+ * FILE GENERATED AUTOMATICALLY BY GRADLE TASK
+ * Generated on: ${BUILD_TIME}
+ * Command:${COMMAND}
+ * Module: ${NAME}
+ * Package: ${PACKAGE}
+ * =================================================================================================
+ */
+
+ class ${NAME}ViewModel constructor(private val currentRepository: ApplicationApi) :
+     BaseUIViewModel<${NAME}Contract.${NAME}State, ${NAME}Contract.${NAME}Action>(${NAME}Contract.${NAME}State()) {
+
+
+     override fun initializeData() {
+
+     }
+
+     override fun onUIAction(event: ${NAME}Contract.${NAME}Action) {
+        when(event){
+            else -> {}
+        }
+     }
+ }

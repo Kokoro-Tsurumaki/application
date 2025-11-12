@@ -1,0 +1,33 @@
+package ${PACKAGE}.ui.features.${NAME_LOWER}
+
+import ${PACKAGE}.ui.common.base.BaseUIViewModel
+import ${PACKAGE}.core.network.NetRepository
+import kokoro.mobile.network.dispose.pack.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+/**
+ * =================================================================================================
+ * FILE GENERATED AUTOMATICALLY BY GRADLE TASK
+ * Generated on: ${BUILD_TIME}
+ * Command:${COMMAND}
+ * Module: ${NAME}
+ * Package: ${PACKAGE}
+ * =================================================================================================
+ */
+
+ @HiltViewModel
+ class ${NAME}ViewModel @Inject constructor(private val currentRepository: NetRepository) :
+     BaseUIViewModel<${NAME}Contract.${NAME}State, ${NAME}Contract.${NAME}Action>(${NAME}Contract.${NAME}State()) {
+
+
+     override fun initializeData() {
+
+     }
+
+     override fun onUIAction(event: ${NAME}Contract.${NAME}Action) {
+        when(event){
+            else -> {}
+        }
+     }
+ }

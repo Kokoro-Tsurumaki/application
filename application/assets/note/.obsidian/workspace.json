@@ -1,0 +1,217 @@
+{
+  "main": {
+    "id": "b4044d646c0839a4",
+    "type": "split",
+    "children": [
+      {
+        "id": "35b289b50dadb7f6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3869b024b4a542e6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "study/考试/近代史/会议纪要.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "会议纪要"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cd47012c9065129e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b616fa7482958b3b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c58e2694345ee0b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "48e0096762010f21",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "74468ebff3bbcb23",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 218.5
+  },
+  "right": {
+    "id": "0f770d6ee631dfe1",
+    "type": "split",
+    "children": [
+      {
+        "id": "97aeb617a718641d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3d7ed31ece4ac73b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "MVI.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "MVI 的反向链接列表"
+            }
+          },
+          {
+            "id": "bfc490ca9ca5b799",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Andorid/View绘制.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "View绘制 的出链列表"
+            }
+          },
+          {
+            "id": "816d4017db59795b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "419f745fc8e3bdbf",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Andorid/View绘制.md"
+              },
+              "icon": "lucide-list",
+              "title": "View绘制 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:创建新数据库": false,
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "3869b024b4a542e6",
+  "lastOpenFiles": [
+    "study/考试/近代史/重大事件时间轴.md",
+    "study/考试/近代史/习近平.md",
+    "study/考试/近代史/会议纪要.md",
+    "未命名.base",
+    "study/约定.md",
+    "Flutter兼容HarmonyOSNext.md",
+    "未命名.md",
+    "study/考试/规则.md",
+    "study/兴趣/留档/compass/1..md",
+    "study/考试/英文-留档/近义词区分.md",
+    "study/考试/英文-留档/关联词组.md",
+    "链接3/blob/master/ohos/docs/03_environment/openHarmony-flutter环境搭建指导.md",
+    "链接3/blob/master/ohos/docs/03_environment",
+    "链接3/blob/master/ohos/docs",
+    "链接3/blob/master/ohos",
+    "链接3/blob/master",
+    "链接3/blob",
+    "链接3",
+    "study/考试/英文-留档/语法.md",
+    "留档/MVI.md",
+    "留档/记账产品文档.md",
+    "留档/幼芽工时.md",
+    "留档/idea破解.md",
+    "职业之路的思考/对于Android.md",
+    "assets/Pasted image 20250918134504.png",
+    "留档/医院项目改名留档.md",
+    "酒店项目问题汇总.md",
+    "09.26日程.md",
+    "study/CS/core/工具/git.md",
+    "study/CS/backend/Web/Spring.md",
+    "study/CS/backend/sql/概念.md",
+    "study/CS/面试与工作/record.md",
+    "study/CS/面试与工作/面试题.md",
+    "study/CS/面试与工作/工作问题记录.md",
+    "职业之路的思考",
+    "新建 文本文档.txt",
+    "study/兴趣/留档/compass",
+    "assets/Pasted image 20251014200324.png",
+    "assets/Pasted image 20250626093540.png",
+    "assets/Pasted image 20250707195934.png",
+    "assets/Pasted image 20250626093625.png",
+    "未命名.canvas",
+    "1748480876076.jpg",
+    "Pasted image 20250529091246.png",
+    "Pasted image 20250529090947.png",
+    "Pasted image 20250529091013.png",
+    "Pasted image 20250529091223.png"
+  ]
+}
