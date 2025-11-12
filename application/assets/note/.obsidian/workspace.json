@@ -1,0 +1,212 @@
+{
+  "main": {
+    "id": "b4044d646c0839a4",
+    "type": "split",
+    "children": [
+      {
+        "id": "c6e4cf28eeae9336",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9a25e723e54a00ac",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cd47012c9065129e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b616fa7482958b3b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c58e2694345ee0b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "48e0096762010f21",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "74468ebff3bbcb23",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 218.5
+  },
+  "right": {
+    "id": "0f770d6ee631dfe1",
+    "type": "split",
+    "children": [
+      {
+        "id": "97aeb617a718641d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3d7ed31ece4ac73b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "MVI.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "MVI 的反向链接列表"
+            }
+          },
+          {
+            "id": "bfc490ca9ca5b799",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Andorid/View绘制.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "View绘制 的出链列表"
+            }
+          },
+          {
+            "id": "816d4017db59795b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "419f745fc8e3bdbf",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Andorid/View绘制.md"
+              },
+              "icon": "lucide-list",
+              "title": "View绘制 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:创建新数据库": false,
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "8c58e2694345ee0b",
+  "lastOpenFiles": [
+    "study/CS/core/语言/Kotlin.md",
+    "未命名 1.base",
+    "study/CS/core/语言/python.md",
+    "文档.md",
+    "study/考试/规则.md",
+    "study/约定.md",
+    "study/CS/core/语言/Java.md",
+    "study/兴趣/留档/语法.md",
+    "study/兴趣/留档/单词.md",
+    "study/兴趣/留档/地球仪.md",
+    "study/兴趣/留档/Pocket/1.いつもの帰り道.md",
+    "study/兴趣/留档/曇り空の向こうは晴れている.md",
+    "study/CS/frontend/Android/Android.md",
+    "study/CS/frontend/Android/framework/Framework.md",
+    "study/CS/frontend/Android/framework/AOSP.md",
+    "未命名.base",
+    "留档/idea破解.md",
+    "留档/记账产品文档.md",
+    "Flutter兼容HarmonyOSNext.md",
+    "study/兴趣/留档/Pocket",
+    "未命名",
+    "study/CS/frontend/Vue.md",
+    "study/考试/近代史/会议纪要.md",
+    "study/CS/运维/Mysql部署.md",
+    "study/CS/运维/运维.md",
+    "study/CS/core/系统/Linex/Ubuntu.md",
+    "study/CS/运维",
+    "study/考试/近代史/重大事件时间轴.md",
+    "study/考试/近代史/习近平.md",
+    "study/兴趣/留档/compass/1..md",
+    "链接3/blob/master/ohos/docs/03_environment",
+    "链接3/blob/master/ohos/docs",
+    "链接3/blob/master/ohos",
+    "链接3/blob/master",
+    "链接3/blob",
+    "assets/Pasted image 20250918134504.png",
+    "assets/Pasted image 20251014200324.png",
+    "assets/Pasted image 20250626093540.png",
+    "assets/Pasted image 20250707195934.png",
+    "assets/Pasted image 20250626093625.png",
+    "未命名.canvas",
+    "1748480876076.jpg",
+    "Pasted image 20250529091246.png",
+    "Pasted image 20250529090947.png",
+    "Pasted image 20250529091013.png",
+    "Pasted image 20250529091223.png"
+  ]
+}

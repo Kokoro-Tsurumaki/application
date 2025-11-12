@@ -1,0 +1,48 @@
+package ${PACKAGE}.ui.features.${NAME_LOWER}
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ${PACKAGE}.PreviewContainer
+import ${PACKAGE}.ui.common.base.VMStateContainer
+
+/**
+ * =================================================================================================
+ * FILE GENERATED AUTOMATICALLY BY GRADLE TASK
+ * Generated on: ${BUILD_TIME}
+ * Command:${COMMAND}
+ * Module: ${NAME}
+ * Package: ${PACKAGE}
+ * =================================================================================================
+ */
+
+@Composable
+fun ${NAME}Screen() {
+    VMStateContainer<${NAME}ViewModel>(onInit = { viewModel ->
+
+    }, effectCallBack = {
+
+    }) {
+        val viewModel = ${NAME}ViewModel(ApplicationApi())
+        val uiState by viewModel.uiFlow.collectAsStateWithLifecycle()
+        ${NAME}View(uiState){
+            viewModel.sendUIAction(it)
+        }
+    }
+}
+
+@Composable
+fun ${NAME}View(state: ${NAME}Contract.${NAME}State, onAction:((${NAME}Contract.${NAME}Action)-> Unit)) {
+
+}
+
+@Preview
+@Composable
+fun PreView() {
+    PreviewContainer {
+        ${NAME}View(${NAME}Contract.${NAME}State()){
+
+        }
+    }
+}

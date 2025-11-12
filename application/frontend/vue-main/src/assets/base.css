@@ -1,0 +1,229 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --spacing-unit: 0.25rem /* 4px */;
+  --spacing-1: calc(var(--spacing-unit) * 1);
+  --spacing-2: calc(var(--spacing-unit) * 2);
+  --spacing-3: calc(var(--spacing-unit) * 3);
+  --spacing-4: calc(var(--spacing-unit) * 4);
+  --spacing-5: calc(var(--spacing-unit) * 5);
+  --spacing-6: calc(var(--spacing-unit) * 6);
+  --spacing-8: calc(var(--spacing-unit) * 8);
+  --spacing-10: calc(var(--spacing-unit) * 10);
+  --spacing-12: calc(var(--spacing-unit) * 12);
+  --spacing-16: calc(var(--spacing-unit) * 16);
+  --spacing-20: calc(var(--spacing-unit) * 20);
+  --spacing-24: calc(var(--spacing-unit) * 24);
+
+  /* 布局尺寸 */
+  --navbar-height: 4rem;
+  --sidebar-width: 16rem;
+  --container-max-width: 1200px;
+  /* 这是兼容断点 */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* 动画 */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+[data-theme="light"]{
+  --md-sys-color-primary: rgb(65 95 145);
+  --md-sys-color-surface-tint: rgb(65 95 145);
+  --md-sys-color-on-primary: rgb(255 255 255);
+  --md-sys-color-primary-container: rgb(214 227 255);
+  --md-sys-color-on-primary-container: rgb(40 71 119);
+  --md-sys-color-secondary: rgb(86 95 113);
+  --md-sys-color-on-secondary: rgb(255 255 255);
+  --md-sys-color-secondary-container: rgb(218 226 249);
+  --md-sys-color-on-secondary-container: rgb(62 71 89);
+  --md-sys-color-tertiary: rgb(112 85 117);
+  --md-sys-color-on-tertiary: rgb(255 255 255);
+  --md-sys-color-tertiary-container: rgb(250 216 253);
+  --md-sys-color-on-tertiary-container: rgb(87 62 92);
+  --md-sys-color-error: rgb(186 26 26);
+  --md-sys-color-on-error: rgb(255 255 255);
+  --md-sys-color-error-container: rgb(255 218 214);
+  --md-sys-color-on-error-container: rgb(147 0 10);
+  --md-sys-color-surface: rgb(249 249 255);
+  --md-sys-color-on-surface: rgb(25 28 32);
+  --md-sys-color-surface-variant: rgb(224 226 236);
+  --md-sys-color-on-surface-variant: rgb(68 71 78);
+  --md-sys-color-outline: rgb(116 119 127);
+  --md-sys-color-outline-variant: rgb(196 198 208);
+  --md-sys-color-shadow: rgb(0 0 0);
+  --md-sys-color-scrim: rgb(0 0 0);
+  --md-sys-color-inverse-surface: rgb(46 48 54);
+  --md-sys-color-inverse-on-surface: rgb(240 240 247);
+  --md-sys-color-inverse-primary: rgb(170 199 255);
+  --md-sys-color-primary-fixed: rgb(214 227 255);
+  --md-sys-color-on-primary-fixed: rgb(0 27 62);
+  --md-sys-color-primary-fixed-dim: rgb(170 199 255);
+  --md-sys-color-on-primary-fixed-variant: rgb(40 71 119);
+  --md-sys-color-secondary-fixed: rgb(218 226 249);
+  --md-sys-color-on-secondary-fixed: rgb(19 28 43);
+  --md-sys-color-secondary-fixed-dim: rgb(190 198 220);
+  --md-sys-color-on-secondary-fixed-variant: rgb(62 71 89);
+  --md-sys-color-tertiary-fixed: rgb(250 216 253);
+  --md-sys-color-on-tertiary-fixed: rgb(40 19 46);
+  --md-sys-color-tertiary-fixed-dim: rgb(221 188 224);
+  --md-sys-color-on-tertiary-fixed-variant: rgb(87 62 92);
+  --md-sys-color-surface-dim: rgb(217 217 224);
+  --md-sys-color-surface-bright: rgb(249 249 255);
+  --md-sys-color-surface-container-lowest: rgb(255 255 255);
+  --md-sys-color-surface-container-low: rgb(243 243 250);
+  --md-sys-color-surface-container: rgb(237 237 244);
+  --md-sys-color-surface-container-high: rgb(231 232 238);
+  --md-sys-color-surface-container-highest: rgb(226 226 233);
+}
+[data-theme="dark"]{
+  --md-sys-color-primary: rgb(170 199 255);
+  --md-sys-color-surface-tint: rgb(170 199 255);
+  --md-sys-color-on-primary: rgb(10 48 95);
+  --md-sys-color-primary-container: rgb(40 71 119);
+  --md-sys-color-on-primary-container: rgb(214 227 255);
+  --md-sys-color-secondary: rgb(190 198 220);
+  --md-sys-color-on-secondary: rgb(40 49 65);
+  --md-sys-color-secondary-container: rgb(62 71 89);
+  --md-sys-color-on-secondary-container: rgb(218 226 249);
+  --md-sys-color-tertiary: rgb(221 188 224);
+  --md-sys-color-on-tertiary: rgb(63 40 68);
+  --md-sys-color-tertiary-container: rgb(87 62 92);
+  --md-sys-color-on-tertiary-container: rgb(250 216 253);
+  --md-sys-color-error: rgb(255 180 171);
+  --md-sys-color-on-error: rgb(105 0 5);
+  --md-sys-color-error-container: rgb(147 0 10);
+  --md-sys-color-on-error-container: rgb(255 218 214);
+  --md-sys-color-surface: rgb(17 19 24);
+  --md-sys-color-on-surface: rgb(226 226 233);
+  --md-sys-color-surface-variant: rgb(68 71 78);
+  --md-sys-color-on-surface-variant: rgb(196 198 208);
+  --md-sys-color-outline: rgb(142 144 153);
+  --md-sys-color-outline-variant: rgb(68 71 78);
+  --md-sys-color-shadow: rgb(0 0 0);
+  --md-sys-color-scrim: rgb(0 0 0);
+  --md-sys-color-inverse-surface: rgb(226 226 233);
+  --md-sys-color-inverse-on-surface: rgb(46 48 54);
+  --md-sys-color-inverse-primary: rgb(65 95 145);
+  --md-sys-color-primary-fixed: rgb(214 227 255);
+  --md-sys-color-on-primary-fixed: rgb(0 27 62);
+  --md-sys-color-primary-fixed-dim: rgb(170 199 255);
+  --md-sys-color-on-primary-fixed-variant: rgb(40 71 119);
+  --md-sys-color-secondary-fixed: rgb(218 226 249);
+  --md-sys-color-on-secondary-fixed: rgb(19 28 43);
+  --md-sys-color-secondary-fixed-dim: rgb(190 198 220);
+  --md-sys-color-on-secondary-fixed-variant: rgb(62 71 89);
+  --md-sys-color-tertiary-fixed: rgb(250 216 253);
+  --md-sys-color-on-tertiary-fixed: rgb(40 19 46);
+  --md-sys-color-tertiary-fixed-dim: rgb(221 188 224);
+  --md-sys-color-on-tertiary-fixed-variant: rgb(87 62 92);
+  --md-sys-color-surface-dim: rgb(17 19 24);
+  --md-sys-color-surface-bright: rgb(55 57 62);
+  --md-sys-color-surface-container-lowest: rgb(12 14 19);
+  --md-sys-color-surface-container-low: rgb(25 28 32);
+  --md-sys-color-surface-container: rgb(29 32 36);
+  --md-sys-color-surface-container-high: rgb(40 42 47);
+  --md-sys-color-surface-container-highest: rgb(51 53 58);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box; /* 统一盒模型 */
+  margin: 0;
+  padding: 0;
+}
+html {
+  line-height: 1.15; /* 修正行高 */
+  -webkit-text-size-adjust: 100%; /* 防止 iOS 横屏字号调整 */
+  scroll-behavior: smooth; /* 平滑滚动 */
+}
+body {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, sans-serif; /* 系统字体栈 */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased; /* 字体抗锯齿 */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 移除默认边距 */
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* 列表样式重置 */
+ul, ol {
+  list-style: none;
+}
+
+/* 链接样式 */
+a {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 按钮和输入框重置 */
+button, input, optgroup, select, textarea {
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/* 图片和媒体 */
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 表格重置 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+
+/*.shadow-border-sm {*/
+/*  box-shadow:*/
+/*    0 0 0 1px rgb(59 130 246 / 0.1),*/
+/*    0 0 0 1px rgb(59 130 246 / 0.05),*/
+/*    0 10px 15px -3px rgb(59 130 246 / 0.1),*/
+/*    0 4px 6px -4px rgb(59 130 246 / 0.1);*/
+/*}*/
+/*.shadow-border-sm:hover {*/
+/*  box-shadow:*/
+/*    0 0 0 1px rgb(59 130 246 / 0.2),*/
+/*    0 0 0 1px rgb(59 130 246 / 0.1),*/
+/*    0 20px 25px -5px rgb(59 130 246 / 0.1),*/
+/*    0 10px 10px -5px rgb(59 130 246 / 0.04);*/
+/*}*/

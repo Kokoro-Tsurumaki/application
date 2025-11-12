@@ -1,0 +1,20 @@
+[Unit]
+Description=KKR Spring Boot Application
+After=network.target mysql.service
+
+[Service]
+User=appuser
+Group=appgroup
+WorkingDirectory=/opt/kkr-app/bin
+Environment="SPRING_CONFIG_LOCATION=/opt/kkr-app/config/application-prod.yml"
+Environment="JAVA_OPTS=-Xms512m -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/kkr-app/logs/heapdump.hprof"
+ExecStart=/usr/bin/java $JAVA_OPTS -jar /opt/kkr-app/bin/your-app.jar
+
+SuccessExitStatus=143
+Restart=always
+RestartSec=30
+StandardOutput=file:/opt/kkr-app/logs/stdout.log
+StandardError=file:/opt/kkr-app/logs/stderr.log
+
+[Install]
+WantedBy=multi-user.target

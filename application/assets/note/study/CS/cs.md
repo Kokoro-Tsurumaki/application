@@ -1,0 +1,47 @@
+# 目录结构
+
+- CS/
+    - [cs.md](cs.md)
+    - [record.md](record.md)
+    - [工作问题记录.md](工作问题记录.md)
+    - Android/
+      - [adb.md](adb.md)
+      - [Android.md](Android.md)
+      - [Compose.md](Compose.md)
+      - [Gradle.md](Gradle.md)
+      - [View绘制.md](View绘制.md)
+      - [三方框架与架构搭建.md](三方框架与架构搭建.md)
+      - framework/
+        - [AOSP.md](AOSP.md)
+        - [Framework.md](Framework.md)
+    - Flutter/
+      - [Flutter.md](CS/Flutter/Flutter.md)
+      - [命令.md](命令.md)
+    - Web/
+      - [Spring.md](Spring.md)
+    - 工具/
+      - [git.md](git.md)
+    - 系统/
+      - Linex/
+        - [Linex.md](Linex.md)
+        - [Ubuntu.md](Ubuntu.md)
+    - 网络/
+      - [Okhttp.md](Okhttp.md)
+      - [网络.md](网络.md)
+      - 传输层/
+        - [TCP.md](TCP.md)
+        - [UDP.md](UDP.md)
+      - 应用层/
+        - [Http.md](Http.md)
+    - 语言/
+      - [C++.md](C++.md)
+      - [C.md](C.md)
+      - [css.md](css.md)
+      - [git.md](CS/语言/git.md)
+      - [Java.md](Java.md)
+      - [JavaScript.md](JavaScript.md)
+      - [Kotlin.md](Kotlin.md)
+      - [python.md](python.md)
+      - [Vue.md](Vue.md)
+      - [正则表达式.md](正则表达式.md)
+      - [语言.md](语言.md)
